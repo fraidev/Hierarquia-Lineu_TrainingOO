@@ -1,29 +1,19 @@
-﻿using Hierarquia_Lineu.Domains;
+﻿using System;
+using Hierarquia_Lineu.Domains;
 using NUnit.Framework;
 
 namespace Hierarquia_Lineu.Tests
 {
     public class Testes
     {
-        [Test]
-        public void Humano_Deve_Retornar_Sua_Hierarquia()
+        [TestCase(typeof(HomoSapiens), "Reino: Animalia\nFilo: Chordata\nClasse: Mammalia\nOrdem: Primata\nFamilia: Hominidae\nGenero: Homo\nEspecie: HomoSapiens\n")]
+        [TestCase(typeof(CanisFamiliaris), "Reino: Animalia\nFilo: Chordata\nClasse: Mammalia\nOrdem: Carnivora\nFamilia: Canidae\nGenero: Canis\nEspecie: CanisFamiliaris\n")]
+        [TestCase(typeof(MuscaDomestica), "Reino: Animalia\nFilo: Arthropoda\nClasse: Insecta\nOrdem: Diptera\nFamilia: Muscidae\nGenero: Musca\nEspecie: MuscaDomestica\n")]
+        public void Teste_de_hierarquia(Type tipo, string descricaoEsperada)
         {
-            var humano = new HomoSapiens();
-            Assert.AreEqual(humano.GetDescricao(), "Reino: Animalia\nFilo: Chordata\nClasse: Mammalia\nOrdem: Primata\nFamilia: Hominidae\nGenero: Homo\nEspecie: HomoSapiens\n");
-        }
-        [Test]
-        public void Cao_Deve_Retornar_Sua_Hierarquia()
-        {
-            var cao = new CanisFamiliaris();
-            Assert.AreEqual(cao.GetDescricao(),
-                "Reino: Animalia\nFilo: Chordata\nClasse: Mammalia\nOrdem: Carnivora\nFamilia: Canidae\nGenero: Canis\nEspecie: CanisFamiliaris\n");
-        }
-        [Test]
-        public void Mao_Deve_Retornar_Sua_Hierarquia()
-        {
-            var mosca = new MuscaDomestica();
-            Assert.AreEqual(mosca.GetDescricao(), 
-                "Reino: Animalia\nFilo: Arthropoda\nClasse: Insecta\nOrdem: Diptera\nFamilia: Muscidae\nGenero: Musca\nEspecie: MuscaDomestica\n");
+            var x = (Animalia) Activator.CreateInstance(tipo);
+            var descricao = x.GetDescricao();
+            Assert.AreEqual(descricao, descricaoEsperada);
         }
     }
 }
