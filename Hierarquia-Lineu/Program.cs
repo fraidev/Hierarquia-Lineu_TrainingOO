@@ -7,8 +7,12 @@ namespace Hierarquia_Lineu
     {
         static void Main(string[] args)
         {
-            var omano = new HomoSapiens();
-            Console.WriteLine(omano.GetDescricao());
+            var humano = new HomoSapiens();
+            var cao = new CanisFamiliaris();
+            var mosca = new MuscaDomestica();
+            
+            
+            Console.WriteLine(cao.GetDescricao());
         }
     }
 }
